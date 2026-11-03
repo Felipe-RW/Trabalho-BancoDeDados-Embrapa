@@ -1,4 +1,7 @@
-﻿//- Cadastro de usuário:
+﻿using embrapa_bd.Data;
+using embrapa_bd.Models;
+
+//- Cadastro de usuário:
 
 static void CadastrarUsuario(UsuarioRepositorio usuarioRepo)
 {

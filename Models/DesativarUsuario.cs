@@ -1,14 +1,13 @@
 using System;
 using embrapa_bd.Data;
-using emprapa_bd.Models;
+using embrapa_bd.Models;
 using MySql.Data.MySqlClient;
 
 namespace embrapa_bd
 {
-    public static class DesativarUsuarioConsole
+    public static class DesativarUsuario
     {
-       
-        public static void DesativarUsuario(UsuarioRepositorio usuarioRepo)
+        public static void usuario(UsuarioRepositorio usuarioRepo)
         {
             Console.WriteLine("ID do usuário que deseja desativar:");
             if (!int.TryParse(Console.ReadLine(), out int id) || id <= 0)
