@@ -17,6 +17,8 @@ namespace embrapa_bd.Models
                 Console.WriteLine("2 - Ações");
                 Console.WriteLine("3 - Categorias");
                 Console.WriteLine("4 - Cargos");
+                Console.WriteLine("5 - Logs de operações");
+                Console.WriteLine("6 - Validações");
                 Console.WriteLine("0 - Voltar");
 
                 string titulo;
@@ -38,6 +40,14 @@ namespace embrapa_bd.Models
                     case "4":
                         opcao = 4;
                         titulo = "Cargos";
+                        break;
+                    case "5":
+                        opcao = 5;
+                        titulo = "Logs de operações";
+                        break;
+                    case "6":
+                        opcao = 6;
+                        titulo = "Validações";
                         break;
                     case "0":
                     case null:
@@ -77,7 +87,8 @@ namespace embrapa_bd.Models
                     string texto = valor switch
                     {
                         DBNull _ => "Não informado",
-                        DateTime data => data.ToString("dd/MM/yyyy"),
+                        DateTime data => data.ToString(coluna.ColumnName == "data_hora"
+                            ? "dd/MM/yyyy HH:mm:ss" : "dd/MM/yyyy"),
                         bool ativo => ativo ? "Sim" : "Não",
                         _ => Convert.ToString(valor) ?? string.Empty
                     };

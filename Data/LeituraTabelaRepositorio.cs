@@ -66,6 +66,24 @@ namespace embrapa_bd.Data
                              WHERE uc.cargo_id = c.id) AS usuarios
                         FROM cargo c ORDER BY c.id";
                     break;
+                case 5:
+                    sql = @"
+                        SELECT l.id, u.matricula, u.nome AS responsavel,
+                            l.operacao, l.tabela_afetada, l.id_registrado, l.data_hora
+                        FROM log_usuario l
+                        LEFT JOIN usuario u ON u.id = l.matricula_id
+                        ORDER BY l.data_hora DESC, l.id DESC";
+                    break;
+                case 6:
+                    sql = @"
+                        SELECT v.usuario_id AS id_usuario, u.nome AS responsavel,
+                            v.acao_id AS id_acao, a.titulo AS acao,
+                            NULLIF(v.motivo_rejeicao, '') AS motivo_rejeicao
+                        FROM validacao v
+                        LEFT JOIN acao a ON a.id = v.acao_id
+                        LEFT JOIN usuario u ON u.id = v.usuario_id
+                        ORDER BY v.acao_id, v.usuario_id";
+                    break;
                 default:
                     throw new ArgumentException("Opção de tabela inválida.", nameof(opcao));
             }
