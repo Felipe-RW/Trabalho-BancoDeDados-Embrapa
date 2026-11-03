@@ -67,3 +67,25 @@ create table log_usuario(
 
 insert ignore into usuario(nome, email, senha, matricula)
 values('Administrador', 'admin@admin.com', '12345', '00001');
+
+insert ignore into cargo (titulo)
+values ('Administrador');
+
+insert ignore into usuario_cargo (usuario_id, cargo_id)
+select u.id, c.id
+from usuario u
+cross join cargo c
+where u.email = 'admin@admin.com'
+and c.titulo = 'Administrador';
+
+SELECT
+    u.id,
+    u.nome,
+    u.email,
+    u.senha,
+    u.matricula,
+    u.ativo,
+    c.titulo AS cargo
+FROM usuario u
+INNER JOIN usuario_cargo uc ON u.id = uc.usuario_id
+INNER JOIN cargo c ON uc.cargo_id = c.id;
