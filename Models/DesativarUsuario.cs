@@ -39,7 +39,7 @@ namespace embrapa_bd
             }
             catch (MySqlException)
             {
-                Console.WriteLine("Não foi possível desativar o usuário. Verifique a conexão e a estrutura do banco de dados.");
+                Console.WriteLine("Não foi possível desativar o usuário.");
             }
         }
     }
