@@ -26,54 +26,66 @@ namespace embrapa_bd
                     return;
                 }
 
-                Console.WriteLine("Deixe o campo em branco para manter o valor atual.");
-                Console.WriteLine($"Nome atual: {usuario.Nome}");
-                string? nome = Console.ReadLine();
-                Console.WriteLine($"Email atual: {usuario.Email}");
-                string? email = Console.ReadLine();
-                Console.WriteLine("Nova senha (em branco para manter a atual):");
-                string? senha = Console.ReadLine();
-                Console.WriteLine($"Matrícula atual: {usuario.Matricula}");
-                string? matricula = Console.ReadLine();
-
-                bool alterado = false;
-                if (!string.IsNullOrWhiteSpace(nome) && nome.Trim() != usuario.Nome)
+                Console.WriteLine($"Usuário selecionado: {usuario.Id} - {usuario.Nome}");
+                Console.WriteLine("1 - Alterar nome");
+                Console.WriteLine("2 - Alterar senha");
+                Console.WriteLine("3 - Alterar email");
+                Console.WriteLine("0 - Cancelar");
+                if (!int.TryParse(Console.ReadLine(), out int opcao))
                 {
-                    usuario.Nome = nome.Trim();
-                    alterado = true;
-                }
-                if (!string.IsNullOrWhiteSpace(email) && email.Trim() != usuario.Email)
-                {
-                    usuario.Email = email.Trim();
-                    alterado = true;
-                }
-                if (!string.IsNullOrWhiteSpace(senha) && senha != usuario.Senha)
-                {
-                    usuario.Senha = senha;
-                    alterado = true;
-                }
-                if (!string.IsNullOrWhiteSpace(matricula) && matricula.Trim() != usuario.Matricula)
-                {
-                    usuario.Matricula = matricula.Trim();
-                    alterado = true;
+                    Console.WriteLine("Opção inválida.");
+                    return;
                 }
 
-                if (!alterado)
+                string valorAtual;
+                switch (opcao)
+                {
+                    case 1:
+                        Console.WriteLine($"Nome atual: {usuario.Nome}");
+                        Console.WriteLine("Novo nome:");
+                        valorAtual = usuario.Nome;
+                        break;
+                    case 2:
+                        Console.WriteLine("Nova senha:");
+                        valorAtual = usuario.Senha;
+                        break;
+                    case 3:
+                        Console.WriteLine($"Email atual: {usuario.Email}");
+                        Console.WriteLine("Novo email:");
+                        valorAtual = usuario.Email;
+                        break;
+                    case 0:
+                        Console.WriteLine("Edição cancelada.");
+                        return;
+                    default:
+                        Console.WriteLine("Opção inválida.");
+                        return;
+                }
+
+                string? valor = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(valor))
                 {
                     Console.WriteLine("Nenhuma alteração informada.");
                     return;
                 }
+                if (opcao != 2)
+                    valor = valor.Trim();
+                if (valor == valorAtual)
+                {
+                    Console.WriteLine("O valor informado já está cadastrado para este usuário.");
+                    return;
+                }
 
-                Console.WriteLine("Confirmar edição? (S/N):");
+                Console.WriteLine($"Confirmar edição do usuário {id}? (S/N):");
                 if (!string.Equals(Console.ReadLine()?.Trim(), "S", StringComparison.OrdinalIgnoreCase))
                 {
                     Console.WriteLine("Edição cancelada.");
                     return;
                 }
 
-                Console.WriteLine(usuarioRepo.Editar(usuario)
+                Console.WriteLine(usuarioRepo.Editar(id, opcao, valor)
                     ? "Usuário atualizado com sucesso!"
-                    : "Nenhuma alteração foi aplicada. O usuário pode ter sido removido ou os dados já estavam atualizados.");
+                    : "Nenhuma alteração foi aplicada. O usuário pode ter sido removido ou o valor já estava atualizado.");
             }
             catch (MySqlException ex) when (ex.Number == 1062)
             {

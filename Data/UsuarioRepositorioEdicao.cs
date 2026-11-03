@@ -32,27 +32,37 @@ namespace embrapa_bd.Data
             };
         }
 
-        public static bool Editar(this UsuarioRepositorio repositorio, Usuarios usuario)
+        public static bool Editar(this UsuarioRepositorio repositorio, int id, int opcao, string valor)
         {
-            ArgumentNullException.ThrowIfNull(usuario);
-            if (usuario.Id <= 0)
-                throw new ArgumentException("O ID deve ser positivo.", nameof(usuario));
+            if (id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "O ID deve ser positivo.");
+            if (string.IsNullOrWhiteSpace(valor))
+                throw new ArgumentException("O novo valor não pode ficar em branco.", nameof(valor));
 
-            if (string.IsNullOrWhiteSpace(usuario.Nome) ||
-                string.IsNullOrWhiteSpace(usuario.Email) ||
-                string.IsNullOrWhiteSpace(usuario.Senha) ||
-                string.IsNullOrWhiteSpace(usuario.Matricula))
-                throw new ArgumentException("Preencha todos os campos do usuário.", nameof(usuario));
+            // Cada opção altera apenas uma coluna de um único usuário.
+            // Os comandos são fixos; nenhum nome de coluna vem da entrada do usuário.
+            string sql;
+            switch (opcao)
+            {
+                case 1:
+                    sql = "UPDATE usuarios SET nome = @valor WHERE id = @id";
+                    valor = valor.Trim();
+                    break;
+                case 2:
+                    sql = "UPDATE usuarios SET senha = @valor WHERE id = @id";
+                    break;
+                case 3:
+                    sql = "UPDATE usuarios SET email = @valor WHERE id = @id";
+                    valor = valor.Trim();
+                    break;
+                default:
+                    throw new ArgumentException("Opção de edição inválida.", nameof(opcao));
+            }
 
             using MySqlConnection con = new Conexao().Conectar();
-            const string sql = "UPDATE usuarios SET nome = @nome, email = @email, " +
-                               "senha = @senha, matricula = @matricula WHERE id = @id";
             using MySqlCommand comando = new MySqlCommand(sql, con);
-            comando.Parameters.AddWithValue("@id", usuario.Id);
-            comando.Parameters.AddWithValue("@nome", usuario.Nome);
-            comando.Parameters.AddWithValue("@email", usuario.Email);
-            comando.Parameters.AddWithValue("@senha", usuario.Senha);
-            comando.Parameters.AddWithValue("@matricula", usuario.Matricula);
+            comando.Parameters.AddWithValue("@id", id);
+            comando.Parameters.AddWithValue("@valor", valor);
 
             con.Open();
             return comando.ExecuteNonQuery() > 0;
