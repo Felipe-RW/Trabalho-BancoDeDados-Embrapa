@@ -16,6 +16,7 @@ namespace embrapa_bd.Models
                 Console.WriteLine("1 - Usuários");
                 Console.WriteLine("2 - Ações");
                 Console.WriteLine("3 - Categorias");
+                Console.WriteLine("4 - Cargos");
                 Console.WriteLine("0 - Voltar");
 
                 string titulo;
@@ -33,6 +34,10 @@ namespace embrapa_bd.Models
                     case "3":
                         opcao = 3;
                         titulo = "Categorias";
+                        break;
+                    case "4":
+                        opcao = 4;
+                        titulo = "Cargos";
                         break;
                     case "0":
                     case null:
