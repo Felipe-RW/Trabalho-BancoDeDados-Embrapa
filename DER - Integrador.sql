@@ -31,9 +31,9 @@ create table cargo(
 );
 
 create table usuario_cargo(
-	primary key(usuario_id, cargo_id),
     usuario_id INT not null,
     cargo_id INT not null,
+	primary key(usuario_id, cargo_id),
     foreign key (usuario_id) references usuario(id),
     foreign key (cargo_id) references cargo(id)
 );
