@@ -64,3 +64,6 @@ create table log_usuario(
     matricula_id INT not null,
     foreign key (matricula_id) references usuario(id)
 );
+
+insert ignore into usuario(nome, email, senha, matricula)
+values('Administrador', 'admin@admin.com', '12345', '00001');
