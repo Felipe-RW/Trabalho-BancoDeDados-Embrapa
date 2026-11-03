@@ -47,7 +47,7 @@ create table acao_usuario(
 
 create table validacao(
 	primary key(usuario_id, acao_id),
-	motivo_rejeicao VARCHAR(100) not null,
+	motivo_rejeicao TEXT not null,
     usuario_id INT not null,
     acao_id INT not null,
     foreign key (usuario_id) references usuario(id),
