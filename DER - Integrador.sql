@@ -5,6 +5,7 @@ create table usuario(
 	id INT auto_increment primary Key,
     nome VARCHAR(100) not null,
     email VARCHAR(100) not null unique,
+    senha VARCHAR(50) not null,
     matricula INT not null,
     ativo boolean not null default 1
 );
@@ -47,7 +48,7 @@ create table acao_usuario(
 
 create table validacao(
 	primary key(usuario_id, acao_id),
-	motivo_rejeicao TEXT not null,
+	motivo_rejeicao TEXT,
     usuario_id INT not null,
     acao_id INT not null,
     foreign key (usuario_id) references usuario(id),
