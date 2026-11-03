@@ -1,0 +1,37 @@
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\obj\Debug\net9.0\Banco de Dados - C#.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\obj\Debug\net9.0\Banco de Dados - C#.AssemblyInfoInputs.cache
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\obj\Debug\net9.0\Banco de Dados - C#.AssemblyInfo.cs
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\obj\Debug\net9.0\Banco de Dados - C#.csproj.CoreCompileInputs.cache
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\obj\Debug\net9.0\Banco de Dados - C#.sourcelink.json
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\obj\Debug\net9.0\Banco de Dados - C#.csproj.AssemblyReference.cache
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\Banco de Dados - C#.exe
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\Banco de Dados - C#.deps.json
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\Banco de Dados - C#.runtimeconfig.json
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\Banco de Dados - C#.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\Banco de Dados - C#.pdb
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\BouncyCastle.Cryptography.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\Google.Protobuf.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\K4os.Compression.LZ4.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\K4os.Compression.LZ4.Streams.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\K4os.Hash.xxHash.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\MySql.Data.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\System.Diagnostics.EventLog.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\System.Security.Permissions.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\System.Windows.Extensions.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\ZstdSharp.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\runtimes\win-x64\native\comerr64.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\runtimes\win-x64\native\gssapi64.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\runtimes\win-x64\native\k5sprt64.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\runtimes\win-x64\native\krb5_64.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\runtimes\win-x64\native\krbcc64.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.Diagnostics.EventLog.Messages.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.Diagnostics.EventLog.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.Windows.Extensions.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\obj\Debug\net9.0\Banco de.2C95F5F5.Up2Date
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\obj\Debug\net9.0\Banco de Dados - C#.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\obj\Debug\net9.0\refint\Banco de Dados - C#.dll
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\obj\Debug\net9.0\Banco de Dados - C#.pdb
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\obj\Debug\net9.0\Banco de Dados - C#.genruntimeconfig.cache
+C:\Users\VictorSilva\Desktop\Projeto\Banco de Dados - C#\obj\Debug\net9.0\ref\Banco de Dados - C#.dll
