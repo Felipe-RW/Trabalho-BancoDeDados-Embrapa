@@ -2,7 +2,7 @@
 
 static void CadastrarUsuario(UsuarioRepositorio usuarioRepo)
 {
-    Usuarios usuario = new Usuarios();
+    Usuario usuario = new Usuario();
 
     Console.WriteLine("Nome:");
     usuario.Nome = Console.ReadLine();
@@ -23,11 +23,9 @@ static void CadastrarUsuario(UsuarioRepositorio usuarioRepo)
 
 // - Cadastro de Ação:
 
-static void CadastrarAcao(AcaoRepositorio acaoRepo, int pesquisadorId)
+static void CadastrarAcao(AcaoRepositorio acaoRepo)
 {
     Acao acao = new Acao();
-
-    acao.PesquisadorId = pesquisadorId;
 
     Console.WriteLine("Nome da ação:");
     acao.Nome = Console.ReadLine();
