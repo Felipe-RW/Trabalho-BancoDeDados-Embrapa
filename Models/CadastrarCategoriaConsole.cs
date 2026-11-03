@@ -38,7 +38,7 @@ namespace embrapa_bd.Models
             }
             catch (MySqlException)
             {
-                Console.WriteLine("Não foi possível cadastrar a categoria. Verifique a conexão e a tabela categoria do DER.");
+                Console.WriteLine("Não foi possível cadastrar a categoria.");
             }
         }
     }

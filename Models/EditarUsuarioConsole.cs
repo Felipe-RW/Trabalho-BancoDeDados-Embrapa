@@ -77,10 +77,14 @@ namespace embrapa_bd
                 }
 
                 Console.WriteLine($"Confirmar edição do usuário {id}? (S/N):");
-                if (!string.Equals(Console.ReadLine()?.Trim(), "S", StringComparison.OrdinalIgnoreCase))
+                switch (Console.ReadLine()?.Trim().ToUpperInvariant())
                 {
-                    Console.WriteLine("Edição cancelada.");
-                    return;
+                    case "S":
+                        break;
+                    case "N":
+                    default:
+                        Console.WriteLine("Edição cancelada.");
+                        return;
                 }
 
                 Console.WriteLine(usuarioRepo.Editar(id, opcao, valor)
@@ -93,7 +97,7 @@ namespace embrapa_bd
             }
             catch (MySqlException)
             {
-                Console.WriteLine("Não foi possível editar o usuário. Verifique a conexão e a estrutura do banco de dados.");
+                Console.WriteLine("Não foi possível editar o usuário.");
             }
             catch (ArgumentException ex)
             {

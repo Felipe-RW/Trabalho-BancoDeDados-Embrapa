@@ -49,7 +49,7 @@ namespace embrapa_bd.Models
                 }
                 catch (MySqlException)
                 {
-                    Console.WriteLine("Não foi possível consultar os dados. Verifique a conexão e as tabelas do DER no banco configurado.");
+                    Console.WriteLine("Não foi possível consultar os dados.");
                 }
             }
         }
