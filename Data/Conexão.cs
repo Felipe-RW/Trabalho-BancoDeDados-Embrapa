@@ -7,7 +7,7 @@ namespace embrapa_bd.Data
         public MySqlConnection Conectar()
         {
             MySqlConnection con = new MySqlConnection(
-                "Server=localhost;Database=embrapa_bd;Uid=root;Pwd=;");
+                "Server=localhost;Database=der;Uid=root;Pwd=;");
 
             return con;
         }

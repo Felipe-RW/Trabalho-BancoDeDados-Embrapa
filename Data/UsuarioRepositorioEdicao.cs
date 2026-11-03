@@ -13,7 +13,7 @@ namespace embrapa_bd.Data
                 throw new ArgumentOutOfRangeException(nameof(id), "O ID deve ser positivo.");
 
             using MySqlConnection con = new Conexao().Conectar();
-            const string sql = "SELECT id, nome, email, senha, matricula FROM usuarios WHERE id = @id";
+            const string sql = "SELECT id, nome, email, senha, matricula FROM usuario WHERE id = @id";
             using MySqlCommand comando = new MySqlCommand(sql, con);
             comando.Parameters.AddWithValue("@id", id);
 
@@ -28,7 +28,7 @@ namespace embrapa_bd.Data
                 Nome = leitor.GetString("nome"),
                 Email = leitor.GetString("email"),
                 Senha = leitor.GetString("senha"),
-                Matricula = leitor.GetString("matricula")
+                Matricula = Convert.ToString(leitor["matricula"]) ?? string.Empty
             };
         }
 
@@ -45,14 +45,14 @@ namespace embrapa_bd.Data
             switch (opcao)
             {
                 case 1:
-                    sql = "UPDATE usuarios SET nome = @valor WHERE id = @id";
+                    sql = "UPDATE usuario SET nome = @valor WHERE id = @id";
                     valor = valor.Trim();
                     break;
                 case 2:
-                    sql = "UPDATE usuarios SET senha = @valor WHERE id = @id";
+                    sql = "UPDATE usuario SET senha = @valor WHERE id = @id";
                     break;
                 case 3:
-                    sql = "UPDATE usuarios SET email = @valor WHERE id = @id";
+                    sql = "UPDATE usuario SET email = @valor WHERE id = @id";
                     valor = valor.Trim();
                     break;
                 default:

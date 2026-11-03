@@ -10,7 +10,7 @@ namespace embrapa_bd.Data
             Conexao conexao = new Conexao();
             MySqlConnection con = conexao.Conectar();
 
-            string sql = "INSERT INTO usuarios (nome, email, senha, matricula) " +
+            string sql = "INSERT INTO usuario (nome, email, senha, matricula) " +
                          "VALUES (@nome, @email, @senha, @matricula)";
 
             MySqlCommand comando = new MySqlCommand(sql, con);

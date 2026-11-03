@@ -7,26 +7,21 @@ namespace embrapa_bd.Data
     {
         public void Cadastrar(Acao acao)
         {
-            Conexao conexao = new Conexao();
-            MySqlConnection con = conexao.Conectar();
+            if (string.IsNullOrWhiteSpace(acao.Titulo) || acao.Titulo.Trim().Length > 100 ||
+                string.IsNullOrWhiteSpace(acao.Descricao) || acao.CategoriaId <= 0 ||
+                acao.DataRealizacao == default)
+                throw new ArgumentException("Informe título (até 100 caracteres), descrição, categoria e data válidos.");
 
-            string sql = "INSERT INTO acoes (pesquisador_id, ano, nome, descricao, tipo, data) " +
-                         "VALUES (@pesquisador_id, @ano, @nome, @descricao, @tipo, @data)";
-
-            MySqlCommand comando = new MySqlCommand(sql, con);
-
-            comando.Parameters.AddWithValue("@pesquisador_id", acao.PesquisadorId);
-            comando.Parameters.AddWithValue("@ano", acao.Ano);
-            comando.Parameters.AddWithValue("@nome", acao.Nome);
-            comando.Parameters.AddWithValue("@descricao", acao.Descricao);
-            comando.Parameters.AddWithValue("@tipo", acao.Tipo);
-            comando.Parameters.AddWithValue("@data", acao.Data);
-
+            using MySqlConnection con = new Conexao().Conectar();
+            using MySqlCommand comando = new MySqlCommand(
+                "INSERT INTO acao (titulo, descricao, categoria_id, data_de_realizacao) " +
+                "VALUES (@titulo, @descricao, @categoria, @data)", con);
+            comando.Parameters.AddWithValue("@titulo", acao.Titulo.Trim());
+            comando.Parameters.AddWithValue("@descricao", acao.Descricao.Trim());
+            comando.Parameters.AddWithValue("@categoria", acao.CategoriaId);
+            comando.Parameters.AddWithValue("@data", acao.DataRealizacao.Date);
             con.Open();
-
             comando.ExecuteNonQuery();
-
-            con.Close();
         }
     }
 }

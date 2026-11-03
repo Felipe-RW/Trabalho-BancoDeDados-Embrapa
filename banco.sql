@@ -1,3 +1,6 @@
+-- Script legado de cadastro_db, preservado para referência.
+-- A aplicação integrada usa der. Para criar seu banco, execute DER - Integrador.sql.
+-- Este script não migra bancos antigos nem prepara o esquema usado pela aplicação atual.
 create database if not exists cadastro_db character set utf8mb4;
 
 use cadastro_db;
