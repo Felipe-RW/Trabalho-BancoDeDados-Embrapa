@@ -1,10 +1,15 @@
 using MySql.Data.MySqlClient;
 
-namespace Cadastro_de_usuario.Data;
-public class Conexao
+namespace embrapa_bd.Data
 {
-    private readonly string _stringConexao =
-    " Server=localhost;  Port=3306; Database=cadastro_db; Uid=root; Pwd";
+    public class Conexao
+    {
+        public MySqlConnection Conectar()
+        {
+            MySqlConnection con = new MySqlConnection(
+                "Server=localhost;Database=embrapa_bd;Uid=root;Pwd=;");
 
-    public MySqlConnection Criar() => new MySqlConnection (_stringConexao);
+            return con;
+        }
+    }
 }

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\VictorSilva\\Desktop\\Projeto\\Banco de Dados - C#\\Banco de Dados - C#.csproj": {}
+    "C:\\Users\\AdalbertoAlves\\Desktop\\Trabalho-BancoDeDados-Embrapa\\Banco de Dados - C#.csproj": {}
   },
   "projects": {
-    "C:\\Users\\VictorSilva\\Desktop\\Projeto\\Banco de Dados - C#\\Banco de Dados - C#.csproj": {
+    "C:\\Users\\AdalbertoAlves\\Desktop\\Trabalho-BancoDeDados-Embrapa\\Banco de Dados - C#.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\VictorSilva\\Desktop\\Projeto\\Banco de Dados - C#\\Banco de Dados - C#.csproj",
+        "projectUniqueName": "C:\\Users\\AdalbertoAlves\\Desktop\\Trabalho-BancoDeDados-Embrapa\\Banco de Dados - C#.csproj",
         "projectName": "Banco de Dados - C#",
-        "projectPath": "C:\\Users\\VictorSilva\\Desktop\\Projeto\\Banco de Dados - C#\\Banco de Dados - C#.csproj",
-        "packagesPath": "C:\\Users\\VictorSilva\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\VictorSilva\\Desktop\\Projeto\\Banco de Dados - C#\\obj\\",
+        "projectPath": "C:\\Users\\AdalbertoAlves\\Desktop\\Trabalho-BancoDeDados-Embrapa\\Banco de Dados - C#.csproj",
+        "packagesPath": "C:\\Users\\AdalbertoAlves\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\AdalbertoAlves\\Desktop\\Trabalho-BancoDeDados-Embrapa\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\VictorSilva\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\AdalbertoAlves\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
