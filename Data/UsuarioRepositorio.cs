@@ -5,7 +5,7 @@ namespace embrapa_bd.Data
 {
     public class UsuarioRepositorio
     {
-        public void Cadastrar(Usuarios usuario)
+        public void Cadastrar(Usuario usuario)
         {
             Conexao conexao = new Conexao();
             MySqlConnection con = conexao.Conectar();

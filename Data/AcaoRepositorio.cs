@@ -10,17 +10,16 @@ namespace embrapa_bd.Data
             Conexao conexao = new Conexao();
             MySqlConnection con = conexao.Conectar();
 
-            string sql = "INSERT INTO acoes (pesquisador_id, ano, nome, descricao, tipo, data) " +
-                         "VALUES (@pesquisador_id, @ano, @nome, @descricao, @tipo, @data)";
+            string sql = "INSERT INTO acoes (titulo, descricao, status, categoria_id, data) " +
+                         "VALUES (@titulo, @descricao, @status, @categoria_id, @data)";
 
             MySqlCommand comando = new MySqlCommand(sql, con);
 
-            comando.Parameters.AddWithValue("@pesquisador_id", acao.PesquisadorId);
-            comando.Parameters.AddWithValue("@ano", acao.Ano);
-            comando.Parameters.AddWithValue("@nome", acao.Nome);
+            comando.Parameters.AddWithValue("@titulo", acao.Titulo);
             comando.Parameters.AddWithValue("@descricao", acao.Descricao);
-            comando.Parameters.AddWithValue("@tipo", acao.Tipo);
-            comando.Parameters.AddWithValue("@data", acao.Data);
+            comando.Parameters.AddWithValue("@status", acao.Status);
+            comando.Parameters.AddWithValue("@categoria_id", acao.CategoriaId);
+            comando.Parameters.AddWithValue("@data", acao.DataRealizacao);
 
             con.Open();
 
