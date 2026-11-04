@@ -1,6 +1,6 @@
 using System;
 using embrapa_bd.Data;
-using emprapa_bd.Models;
+using embrapa_bd.Models;
 using MySql.Data.MySqlClient;
 
 namespace embrapa_bd
@@ -19,7 +19,7 @@ namespace embrapa_bd
 
             try
             {
-                Usuarios? usuario = usuarioRepo.BuscarPorId(id);
+                Usuario? usuario = usuarioRepo.BuscarPorId(id);
                 if (usuario == null)
                 {
                     Console.WriteLine("Usuário não encontrado.");

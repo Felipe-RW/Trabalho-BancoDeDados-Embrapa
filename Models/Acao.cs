@@ -5,7 +5,7 @@ namespace embrapa_bd.Models
         public int Id { get; set; }
         public string Titulo { get; set; } = "";
         public string Descricao { get; set; } = "";
-        public string Status { get; set; } = "Em Avaliação";
+        public string Status { get; set; } = "";
         public int CategoriaId { get; set; }
         public DateTime DataRealizacao { get; set; }
     }

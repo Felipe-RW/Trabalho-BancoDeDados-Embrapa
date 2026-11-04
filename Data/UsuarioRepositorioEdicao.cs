@@ -1,13 +1,13 @@
 using System;
 using MySql.Data.MySqlClient;
-using emprapa_bd.Models;
+using embrapa_bd.Models;
 
 namespace embrapa_bd.Data
 {
     // Métodos de extensão: adicionam operações sem alterar o repositório existente.
     public static class UsuarioRepositorioEdicao
     {
-        public static Usuarios? BuscarPorId(this UsuarioRepositorio repositorio, int id)
+        public static Usuario? BuscarPorId(this UsuarioRepositorio repositorio, int id)
         {
             if (id <= 0)
                 throw new ArgumentOutOfRangeException(nameof(id), "O ID deve ser positivo.");
@@ -22,13 +22,13 @@ namespace embrapa_bd.Data
             if (!leitor.Read())
                 return null;
 
-            return new Usuarios
+            return new Usuario
             {
                 Id = leitor.GetInt32("id"),
                 Nome = leitor.GetString("nome"),
                 Email = leitor.GetString("email"),
                 Senha = leitor.GetString("senha"),
-                Matricula = Convert.ToString(leitor["matricula"]) ?? string.Empty
+                Matricula = leitor.GetInt32("matricula")
             };
         }
 
