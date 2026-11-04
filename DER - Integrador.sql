@@ -68,8 +68,12 @@ create table log_usuario(
 insert ignore into usuario(nome, email, senha, matricula)
 values('Administrador', 'admin@admin.com', '12345', '00001');
 
-insert ignore into cargo (titulo)
-values ('Administrador');
+INSERT IGNORE INTO cargo (titulo)
+VALUES
+('Pesquisador'),
+('Validador'),
+('Comitê'),
+('Administrador');
 
 insert ignore into usuario_cargo (usuario_id, cargo_id)
 select u.id, c.id
