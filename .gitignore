@@ -1,0 +1,16 @@
+# Build output
+bin/
+obj/
+
+# IDE and user-specific files
+.vs/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+*.user
+*.suo
+
+# Operating system files
+.DS_Store
+Thumbs.db
