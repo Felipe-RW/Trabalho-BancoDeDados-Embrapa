@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\AdalbertoAlves\\Desktop\\Trabalho-BancoDeDados-Embrapa\\Banco de Dados - C#.csproj": {}
+    "C:\\Users\\FelipeWrubel\\OneDrive - Senac MS Edu\\Documents\\Github\\Trabalho-BancoDeDados-Embrapa\\Banco de Dados - C#.csproj": {}
   },
   "projects": {
-    "C:\\Users\\AdalbertoAlves\\Desktop\\Trabalho-BancoDeDados-Embrapa\\Banco de Dados - C#.csproj": {
+    "C:\\Users\\FelipeWrubel\\OneDrive - Senac MS Edu\\Documents\\Github\\Trabalho-BancoDeDados-Embrapa\\Banco de Dados - C#.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\AdalbertoAlves\\Desktop\\Trabalho-BancoDeDados-Embrapa\\Banco de Dados - C#.csproj",
+        "projectUniqueName": "C:\\Users\\FelipeWrubel\\OneDrive - Senac MS Edu\\Documents\\Github\\Trabalho-BancoDeDados-Embrapa\\Banco de Dados - C#.csproj",
         "projectName": "Banco de Dados - C#",
-        "projectPath": "C:\\Users\\AdalbertoAlves\\Desktop\\Trabalho-BancoDeDados-Embrapa\\Banco de Dados - C#.csproj",
-        "packagesPath": "C:\\Users\\AdalbertoAlves\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\AdalbertoAlves\\Desktop\\Trabalho-BancoDeDados-Embrapa\\obj\\",
+        "projectPath": "C:\\Users\\FelipeWrubel\\OneDrive - Senac MS Edu\\Documents\\Github\\Trabalho-BancoDeDados-Embrapa\\Banco de Dados - C#.csproj",
+        "packagesPath": "C:\\Users\\FelipeWrubel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\FelipeWrubel\\OneDrive - Senac MS Edu\\Documents\\Github\\Trabalho-BancoDeDados-Embrapa\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\AdalbertoAlves\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\FelipeWrubel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -1,8 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using embrapa_bd.Data;
 using embrapa_bd.Models;
+
+//- Cadastro de usuário:
 
 class Program
 {

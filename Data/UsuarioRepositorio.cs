@@ -127,7 +127,7 @@ namespace embrapa_bd.Data
             Conexao conexao = new Conexao();
             MySqlConnection con = conexao.Conectar();
 
-            string sql = "UPDATE usuario SET ativo = false WHERE id = @id";
+            string sql = "UPDATE usuario SET ativo = false WHERE id = @id AND ativo = true";
 
             MySqlCommand comando = new MySqlCommand(sql, con);
             comando.Parameters.AddWithValue("@id", id);
@@ -234,5 +234,6 @@ namespace embrapa_bd.Data
 
             return lista;
         }
+
     }
 }
