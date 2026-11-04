@@ -84,6 +84,15 @@ namespace embrapa_bd.Data
                         LEFT JOIN usuario u ON u.id = v.usuario_id
                         ORDER BY v.acao_id, v.usuario_id";
                     break;
+                case 7:
+                    sql = @"
+                        SELECT a.id, a.titulo, a.descricao, a.data_de_realizacao,
+                            a.status_acao, c.nome AS categoria
+                        FROM acao a
+                        LEFT JOIN categoria c ON c.id = a.categoria_id
+                        WHERE a.status_acao = 'Em Avaliação'
+                        ORDER BY a.data_de_realizacao, a.id";
+                    break;
                 default:
                     throw new ArgumentException("Opção de tabela inválida.", nameof(opcao));
             }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using MySql.Data.MySqlClient;
 using embrapa_bd.Data;
 using embrapa_bd.Models;
@@ -147,63 +148,356 @@ class Program
         Pausar();
     }
 
-    // - Cadastro de Categoria:
+    // - Cadastrar categoria:
     static void CadastrarCategoria(CategoriaRepositorio categoriaRepo)
     {
-        Categoria categoria = new Categoria();
-
-        Console.WriteLine("Nome da categoria:");
-        categoria.Nome = Console.ReadLine();
-
-        categoriaRepo.Cadastrar(categoria);
-
-        Console.WriteLine("Categoria cadastrada com sucesso!");
-        Pausar();
-    }
-
-    // - Editar Usuário:
-    static void EditarUsuario(UsuarioRepositorio usuarioRepo)
-    {
-        ListarNaTela(usuarioRepo);
-
-        Console.WriteLine("\nID do usuário a editar:");
-
-        if (!int.TryParse(Console.ReadLine(), out int id))
+        Console.WriteLine("Nome da categoria da ação:");
+        string? nome = Console.ReadLine()?.Trim();
+        if (string.IsNullOrWhiteSpace(nome))
         {
-            Console.WriteLine("ID inválido.");
-            Pausar();
+            Console.WriteLine("Informe o nome da categoria.");
+            return;
+        }
+        if (nome.Length > Categoria.LimiteNome)
+        {
+            Console.WriteLine("O nome da categoria é muito longo.");
             return;
         }
 
-        Usuario usuario = new Usuario();
-        usuario.Id = id;
-
-        Console.WriteLine("Novo nome:");
-        usuario.Nome = Console.ReadLine();
-
-        Console.WriteLine("Novo email:");
-        usuario.Email = Console.ReadLine();
-
-        Console.WriteLine("Nova senha:");
-        usuario.Senha = Console.ReadLine();
-
         try
         {
-            if (usuarioRepo.EditarUsuario(usuario))
-            {
-                Console.WriteLine("Usuário atualizado!");
-            }
-            else
-            {
-                Console.WriteLine("ID não encontrado.");
-            }
+            categoriaRepo.Cadastrar(new Categoria { Nome = nome });
+            Console.WriteLine("Categoria cadastrada com sucesso!");
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message);
         }
         catch (MySqlException ex) when (ex.Number == 1062)
         {
-            Console.WriteLine("Email já cadastrado por outro usuário.");
+            Console.WriteLine("Não foi possível cadastrar: um campo único já está cadastrado.");
+        }
+        catch (MySqlException)
+        {
+            Console.WriteLine("Não foi possível cadastrar a categoria.");
+        }
+    }
+
+    // - Editar usuário:
+    static void EditarUsuarioConsole(UsuarioRepositorio usuarioRepo)
+    {
+        Console.WriteLine("ID do usuário que deseja editar:");
+        if (!int.TryParse(Console.ReadLine(), out int id) || id <= 0)
+        {
+            Console.WriteLine("ID inválido. Informe um número inteiro positivo.");
+            return;
         }
 
-        Pausar();
+        try
+        {
+            Usuario? usuario = usuarioRepo.BuscarPorId(id);
+            if (usuario == null)
+            {
+                Console.WriteLine("Usuário não encontrado.");
+                return;
+            }
+
+            Console.WriteLine($"Usuário selecionado: {usuario.Id} - {usuario.Nome}");
+            Console.WriteLine("1 - Alterar nome");
+            Console.WriteLine("2 - Alterar senha");
+            Console.WriteLine("3 - Alterar email");
+            Console.WriteLine("0 - Cancelar");
+            if (!int.TryParse(Console.ReadLine(), out int opcao))
+            {
+                Console.WriteLine("Opção inválida.");
+                return;
+            }
+
+            string valorAtual;
+            switch (opcao)
+            {
+                case 1:
+                    Console.WriteLine($"Nome atual: {usuario.Nome}");
+                    Console.WriteLine("Novo nome:");
+                    valorAtual = usuario.Nome;
+                    break;
+                case 2:
+                    Console.WriteLine("Nova senha:");
+                    valorAtual = usuario.Senha;
+                    break;
+                case 3:
+                    Console.WriteLine($"Email atual: {usuario.Email}");
+                    Console.WriteLine("Novo email:");
+                    valorAtual = usuario.Email;
+                    break;
+                case 0:
+                    Console.WriteLine("Edição cancelada.");
+                    return;
+                default:
+                    Console.WriteLine("Opção inválida.");
+                    return;
+            }
+
+            string? valor = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(valor))
+            {
+                Console.WriteLine("Nenhuma alteração informada.");
+                return;
+            }
+            if (opcao != 2)
+                valor = valor.Trim();
+            if (valor == valorAtual)
+            {
+                Console.WriteLine("O valor informado já está cadastrado para este usuário.");
+                return;
+            }
+
+            Console.WriteLine($"Confirmar edição do usuário {id}? (S/N):");
+            if (!string.Equals(Console.ReadLine()?.Trim(), "S", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("Edição cancelada.");
+                return;
+            }
+
+            Console.WriteLine(usuarioRepo.Editar(id, opcao, valor)
+                ? "Usuário atualizado com sucesso!"
+                : "Nenhuma alteração foi aplicada. O usuário pode ter sido removido ou o valor já estava atualizado.");
+        }
+        catch (MySqlException ex) when (ex.Number == 1062)
+        {
+            Console.WriteLine("Não foi possível editar: email ou outro campo único já cadastrado.");
+        }
+        catch (MySqlException)
+        {
+            Console.WriteLine("Não foi possível editar o usuário.");
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    // - Editar ação:
+    static void EditarAcaoConsole(AcaoRepositorio acaoRepo)
+    {
+        Console.WriteLine("ID da ação:");
+        if (!int.TryParse(Console.ReadLine(), out int id) || id <= 0)
+        {
+            Console.WriteLine("ID inválido.");
+            return;
+        }
+
+        try
+        {
+            Acao? acao = acaoRepo.BuscarPorId(id);
+            if (acao == null)
+            {
+                Console.WriteLine("Ação não encontrada.");
+                return;
+            }
+
+            Console.WriteLine($"Ação selecionada: {acao.Id} - {acao.Titulo}");
+            Console.WriteLine("1 - Alterar nome");
+            Console.WriteLine("2 - Alterar descrição");
+            Console.WriteLine("3 - Alterar categoria");
+            Console.WriteLine("4 - Alterar data");
+            Console.WriteLine("5 - Vincular pesquisador");
+            Console.WriteLine("0 - Cancelar");
+            if (!int.TryParse(Console.ReadLine(), out int opcao))
+            {
+                Console.WriteLine("Opção inválida.");
+                return;
+            }
+
+            switch (opcao)
+            {
+                case 1:
+                    Console.WriteLine($"Nome atual: {acao.Titulo}");
+                    Console.WriteLine("Novo nome:");
+                    break;
+                case 2:
+                    Console.WriteLine($"Descrição atual: {acao.Descricao}");
+                    Console.WriteLine("Nova descrição:");
+                    break;
+                case 3:
+                    Console.WriteLine($"Categoria atual: {acao.CategoriaId}");
+                    Console.WriteLine("ID da nova categoria:");
+                    break;
+                case 4:
+                    Console.WriteLine($"Data atual: {acao.DataRealizacao:dd/MM/yyyy}");
+                    Console.WriteLine("Nova data (dd/mm/aaaa):");
+                    break;
+                case 5:
+                    Console.WriteLine("ID do pesquisador a vincular (preserva participantes existentes):");
+                    break;
+                case 0:
+                    Console.WriteLine("Edição cancelada.");
+                    return;
+                default:
+                    Console.WriteLine("Opção inválida.");
+                    return;
+            }
+
+            string? valor = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(valor))
+            {
+                Console.WriteLine("Nenhuma alteração informada.");
+                return;
+            }
+            Console.WriteLine("Confirmar edição? (S/N):");
+            if (!string.Equals(Console.ReadLine()?.Trim(), "S", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("Edição cancelada.");
+                return;
+            }
+
+            Console.WriteLine(acaoRepo.Editar(id, opcao, valor)
+                ? "Ação atualizada com sucesso!"
+                : "Nenhuma alteração aplicada. A ação pode ter sido removida ou o valor já estava atualizado.");
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        catch (MySqlException ex) when (ex.Number == 1452)
+        {
+            Console.WriteLine("Pesquisador não encontrado.");
+        }
+        catch (MySqlException)
+        {
+            Console.WriteLine("Não foi possível editar a ação.");
+        }
+    }
+
+    // - Validar ou rejeitar ação:
+    static void ValidarAcaoConsole(ValidacaoAcaoRepositorio validacaoRepo, int usuarioId)
+    {
+        Console.WriteLine("ID da ação:");
+        if (!int.TryParse(Console.ReadLine(), out int acaoId) || acaoId <= 0)
+        {
+            Console.WriteLine("ID da ação inválido.");
+            return;
+        }
+
+        Console.WriteLine("1 - Aprovar ação\n2 - Rejeitar ação\n0 - Cancelar");
+        bool aprovar;
+        switch (Console.ReadLine()?.Trim())
+        {
+            case "1": aprovar = true; break;
+            case "2": aprovar = false; break;
+            case "0": case null: return;
+            default: Console.WriteLine("Opção inválida."); return;
+        }
+
+        string? motivo = null;
+        if (!aprovar)
+        {
+            Console.WriteLine("Motivo da rejeição:");
+            motivo = Console.ReadLine();
+        }
+
+        Console.WriteLine("Confirmar validação? (S/N):");
+        if (!string.Equals(Console.ReadLine()?.Trim(), "S", StringComparison.OrdinalIgnoreCase))
+            return;
+
+        try
+        {
+            Console.WriteLine(validacaoRepo.Validar(acaoId, usuarioId, aprovar, motivo)
+                ? "Validação registrada com sucesso!"
+                : "Ação não encontrada.");
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        catch (MySqlException)
+        {
+            Console.WriteLine("Não foi possível validar. Verifique o banco e o ID do usuário.");
+        }
+    }
+
+    // - Consultar tabelas:
+    static void LerTabelaDoBancoDeDadosConsole(LeituraTabelaRepositorio leituraRepo, int? tabelaFixa = null)
+    {
+        while (true)
+        {
+            int opcao;
+            string titulo;
+            if (tabelaFixa.HasValue)
+            {
+                opcao = tabelaFixa.Value;
+                titulo = opcao switch
+                {
+                    7 => "Ações pendentes",
+                    5 => "Logs de operações",
+                    _ => "Consulta"
+                };
+            }
+            else
+            {
+                Console.WriteLine("\nConsultar tabela:");
+                Console.WriteLine("1 - Usuários");
+                Console.WriteLine("2 - Ações");
+                Console.WriteLine("3 - Categorias");
+                Console.WriteLine("4 - Cargos");
+                Console.WriteLine("5 - Logs de operações");
+                Console.WriteLine("6 - Validações");
+                Console.WriteLine("0 - Voltar");
+                switch (Console.ReadLine()?.Trim())
+                {
+                    case "1": opcao = 1; titulo = "Usuários"; break;
+                    case "2": opcao = 2; titulo = "Ações"; break;
+                    case "3": opcao = 3; titulo = "Categorias"; break;
+                    case "4": opcao = 4; titulo = "Cargos"; break;
+                    case "5": opcao = 5; titulo = "Logs de operações"; break;
+                    case "6": opcao = 6; titulo = "Validações"; break;
+                    case "0": case null: return;
+                    default: Console.WriteLine("Opção inválida."); continue;
+                }
+            }
+
+            try
+            {
+                using DataTable tabela = leituraRepo.LerTabela(opcao);
+                ExibirTabela(tabela, titulo);
+            }
+            catch (MySqlException)
+            {
+                Console.WriteLine("Não foi possível consultar os dados.");
+            }
+
+            if (tabelaFixa.HasValue)
+                return;
+        }
+    }
+
+    static void ExibirTabela(DataTable tabela, string titulo)
+    {
+        Console.WriteLine($"\n{titulo}");
+        if (tabela.Rows.Count == 0)
+        {
+            Console.WriteLine("Nenhum registro encontrado.");
+            return;
+        }
+
+        foreach (DataRow registro in tabela.Rows)
+        {
+            Console.WriteLine("------------------------------");
+            foreach (DataColumn coluna in tabela.Columns)
+            {
+                object valor = registro[coluna];
+                string texto = valor switch
+                {
+                    DBNull _ => "Não informado",
+                    DateTime data => data.ToString(coluna.ColumnName == "data_hora"
+                        ? "dd/MM/yyyy HH:mm:ss" : "dd/MM/yyyy"),
+                    bool ativo => ativo ? "Sim" : "Não",
+                    _ => Convert.ToString(valor) ?? string.Empty
+                };
+                Console.WriteLine($"{coluna.ColumnName}: {texto}");
+            }
+        }
+        Console.WriteLine($"Total de registros: {tabela.Rows.Count}");
     }
 
     // - Desativar Usuário:
@@ -258,7 +552,8 @@ class Program
     // - Menu do Administrador:
     static void MenuAdministrador(
         UsuarioRepositorio usuarioRepo,
-        CategoriaRepositorio categoriaRepo)
+        CategoriaRepositorio categoriaRepo,
+        int usuarioLogadoId)
     {
         while (true)
         {
@@ -288,7 +583,7 @@ class Program
                     break;
 
                 case "3":
-                    embrapa_bd.EditarUsuarioConsole.EditarUsuario(usuarioRepo);
+                    EditarUsuarioConsole(usuarioRepo);
                     Pausar();
                     break;
 
@@ -297,22 +592,22 @@ class Program
                     break;
 
                 case "5":
-                    CadastrarCategoriaConsole.CadastrarCategoria(categoriaRepo);
+                    CadastrarCategoria(categoriaRepo);
                     Pausar();
                     break;
 
                 case "6":
-                    EditarAcaoConsole.EditarAcao(acaoRepo);
+                    EditarAcaoConsole(acaoRepo);
                     Pausar();
                     break;
 
                 case "7":
-                    ValidacaoAcaoConsole.ValidarAcao(new ValidacaoAcaoRepositorio());
+                    ValidarAcaoConsole(new ValidacaoAcaoRepositorio(), usuarioLogadoId);
                     Pausar();
                     break;
 
                 case "8":
-                    LerTabelaDoBancoDeDadosConsole.LerTabelaDoBancoDeDados(new LeituraTabelaRepositorio());
+                    LerTabelaDoBancoDeDadosConsole(new LeituraTabelaRepositorio());
                     break;
 
                 case "0":
@@ -356,7 +651,7 @@ class Program
     }
 
     // - Menu do Validador:
-    static void MenuValidador()
+    static void MenuValidador(int usuarioLogadoId)
     {
         while (true)
         {
@@ -371,12 +666,12 @@ class Program
             switch (Console.ReadLine())
             {
                 case "1":
-                    Console.WriteLine("Consulta de ações em avaliação.");
+                    LerTabelaDoBancoDeDadosConsole(new LeituraTabelaRepositorio(), 7);
                     Pausar();
                     break;
 
                 case "2":
-                    Console.WriteLine("Validação ou rejeição de ação.");
+                    ValidarAcaoConsole(new ValidacaoAcaoRepositorio(), usuarioLogadoId);
                     Pausar();
                     break;
 
@@ -406,7 +701,7 @@ class Program
             switch (Console.ReadLine())
             {
                 case "1":
-                    Console.WriteLine("Consulta do registro de atividades.");
+                    LerTabelaDoBancoDeDadosConsole(new LeituraTabelaRepositorio(), 5);
                     Pausar();
                     break;
 
@@ -474,7 +769,7 @@ class Program
         switch (cargoEscolhido)
         {
             case "Administrador":
-                MenuAdministrador(usuarioRepo, categoriaRepo);
+                MenuAdministrador(usuarioRepo, categoriaRepo, usuarioLogado.Id);
                 break;
 
             case "Pesquisador":
@@ -482,7 +777,7 @@ class Program
                 break;
 
             case "Validador":
-                MenuValidador();
+                MenuValidador(usuarioLogado.Id);
                 break;
 
             case "Comitê":
