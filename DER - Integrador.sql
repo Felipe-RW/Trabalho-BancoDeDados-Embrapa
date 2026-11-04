@@ -1,5 +1,5 @@
-create database if not exists der;
-use der;
+create database if not exists embrapa_bd;
+use embrapa_bd;
 
 create table usuario(
 	id INT auto_increment primary Key,
